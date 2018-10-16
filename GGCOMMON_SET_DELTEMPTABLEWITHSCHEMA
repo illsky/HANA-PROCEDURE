@@ -1,0 +1,35 @@
+CREATE PROCEDURE "COMMON"."SINOPEC.XTGL.03_COMMON.002_PROCEDURE::GGCOMMON_SET_DELTEMPTABLEWITHSCHEMA" 
+(
+	IN SCHEMA_NAME NVARCHAR(256),
+	IN TABLE_NAME NVARCHAR(256)
+ ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+AS
+	/******************************************************
+     Name: 
+          GGCOMMON_SET_DELTEMPTABLEWITHSCHEMA， 删除临时表带SCHEMA的
+     Function:
+       	    用于删除指定SCHEMA下的临时表，如果临时表不存在也不报错；      
+     Input:
+        1，SCHEMA_NAME
+        	临时表所在SCHEMA的名字
+        1. TABLE_NAME
+                   临时表名，必须以‘#’开头
+     output:
+                  ？
+     create/updated by : 
+       phqzhao, 2018/2/5 创建存储过程
+	******************************************************/   
+BEGIN
+DECLARE F_N NVARCHAR(1);
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	begin	
+--SELECT ::SQL_ERROR_CODE, ::SQL_ERROR_MESSAGE FROM DUMMY;
+	end;
+	 F_N := left (:TABLE_NAME,1);
+	IF F_N = '#' 
+		THEN
+			EXEC 'DROP TABLE ' ||:SCHEMA_NAME||'.'|| :TABLE_NAME ;		
+	END IF;
+END;
