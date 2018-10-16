@@ -1,0 +1,24 @@
+CREATE PROCEDURE "COMMON"."SINOPEC.XTGL.03_COMMON.002_PROCEDURE::GGCOMMON_GET_SSUSERLIST" (
+IN SEARCH_ITEM NVARCHAR(256),
+OUT USER_INFO SYS.USERS  ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY DEFINER 
+	READS SQL DATA AS
+/******************************************************
+     Name: 
+          GGCOMMON_GET_SSUSERLIST， 搜索用户信息
+     Function:
+       	    用于搜索HANA的用户信息；      
+     Input:
+        1. SEARCH_ITEM 搜索条件，可以是USER_NNAME、USER_ID;
+     output:
+        ?
+     create/updated by : 
+       phqzhao, 2016/12/21 创建存储过程
+       phqzhao, 2017/02/07 增加注释信息
+******************************************************/   	
+BEGIN
+--支持用户名和用户ID的LIKE搜索
+USER_INFO = SELECT * FROM USERS WHERE USER_NAME LIKE '%'||:SEARCH_ITEM||'%' OR USER_ID LIKE '%'||:SEARCH_ITEM||'%' ;
+
+END;
