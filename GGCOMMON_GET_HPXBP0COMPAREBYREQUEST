@@ -27,6 +27,7 @@ OUT O_MESSAGE NVARCHAR(500)
        PHQZHAO,2018/2/8 更改执行权限为definer，否则一般用户没有创建common临时表的权限
        phqzhao,2018/2/9 去掉G0REQUID字段的比较
        PHQZHAO,2018/3/2 不比较请求中RECORDMODE非N的数据
+       PHQZHAO,TEST GITHUB
  ******************************************************/  	
 BEGIN
 DECLARE STR_COL NVARCHAR(5000);
